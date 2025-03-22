@@ -24,25 +24,27 @@ public class KillStreakHandler {
 
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
-        if(event.getEntity() instanceof Player victim && event.getSource().getEntity()!=null)
-        {
-            UUID victimId = victim.getUUID();
-            long currentTime = System.currentTimeMillis();
-            KillData data = playerKills.computeIfAbsent(victimId, k -> new KillData());
-            long victimTimeDiff = currentTime - data.getLastKillTime();
-            if (victimTimeDiff < KillCounterConfig.streakKillTime.get()) {
-                if(data.getCurrentStreak() >= 2)
-                    broadcastShutDown(victim);
+        if(KillCounterConfig.enableKillCounter.get()) {
+            if (event.getEntity() instanceof Player victim && event.getSource().getEntity() != null) {
+                UUID victimId = victim.getUUID();
+                long currentTime = System.currentTimeMillis();
+                KillData data = playerKills.computeIfAbsent(victimId, k -> new KillData());
+                long victimTimeDiff = currentTime - data.getLastKillTime();
+                if (victimTimeDiff < KillCounterConfig.streakKillTime.get()) {
+                    if (data.getCurrentStreak() >= 2)
+                        broadcastShutDown(victim);
+                }
+
+                playerKills.remove(victimId);
             }
 
-            playerKills.remove(victimId);
-        }
-
-        if (event.getSource().getEntity() instanceof Player player) {
-            if (shouldCountEntity(event.getEntity()) && event.getSource().getEntity() != event.getEntity()){
-                handlePlayerKill(player);
+            if (event.getSource().getEntity() instanceof Player player) {
+                if (shouldCountEntity(event.getEntity()) && event.getSource().getEntity() != event.getEntity()) {
+                    handlePlayerKill(player);
+                }
             }
         }
+
     }
 
     private boolean shouldCountEntity(LivingEntity entity) {
@@ -98,9 +100,9 @@ public class KillStreakHandler {
 
 
         TOTAL_KILL_MESSAGES.put(3, "killcounter.total.three");//大杀特杀
-        TOTAL_KILL_MESSAGES.put(4, "killcounter.total.four");//主宰比赛
-        TOTAL_KILL_MESSAGES.put(5, "killcounter.total.five");//暴走
-        TOTAL_KILL_MESSAGES.put(6, "killcounter.total.six");//不可阻挡
+        TOTAL_KILL_MESSAGES.put(4, "killcounter.total.four");//暴走
+        TOTAL_KILL_MESSAGES.put(5, "killcounter.total.five");//不可阻挡
+        TOTAL_KILL_MESSAGES.put(6, "killcounter.total.six");//主宰比赛
         TOTAL_KILL_MESSAGES.put(7, "killcounter.total.seven");//接近神了
         TOTAL_KILL_MESSAGES.put(8, "killcounter.total.eight");//超神
     }

@@ -8,11 +8,13 @@ public class KillCounterConfig {
 
     public static ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static ModConfigSpec CONFIG;
+    public static ModConfigSpec.BooleanValue enableKillCounter;
     public static ModConfigSpec.LongValue quickKillTime;
     public static ModConfigSpec.LongValue streakKillTime;
     public static ModConfigSpec.BooleanValue enemyBlackOrWhiteList;
     public static ModConfigSpec.ConfigValue<List<? extends String>> enemyBlacklist;
     public static ModConfigSpec.ConfigValue<List<? extends String>> enemyWhitelist;
+    public static ModConfigSpec.BooleanValue enableDeathMsg;
     public static ModConfigSpec.BooleanValue deathMsgBlackOrWhiteList;
     public static ModConfigSpec.ConfigValue<List<? extends String>> deathMsgBlacklist;
     public static ModConfigSpec.ConfigValue<List<? extends String>> deathMsgWhitelist;
@@ -23,6 +25,8 @@ public class KillCounterConfig {
         ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
         BUILDER.push("Kill Counter Config");
 
+        enableKillCounter = BUILDER
+                .define("Enable Kill Counter",true);
         streakKillTime = BUILDER
                 .comment("Maximum duration to maintain kill streak (e.g. killing spree, legendary) (in milliseconds)")
                 .defineInRange("streak Kill Time",180000,1, Long.MAX_VALUE);
@@ -38,13 +42,19 @@ public class KillCounterConfig {
         enemyBlacklist = BUILDER
                 .comment("Blacklist for entities that can trigger kill counter.")
                 .defineList("Entity Blacklist", List.of(
-                        "minecraft:armor_stand",
+                        "minecraft:armor_stand", "minecraft:pig", "minecraft:cow", "minecraft:chicken", "minecraft:sheep", "minecraft:cod", "minecraft:salmon", "minecraft:bee",
                         "minecraft:slime"), () -> "", o -> (o instanceof String));
         enemyWhitelist = BUILDER
                 .comment("Whitelist for entities that can trigger kill counter.")
                 .defineList("Entity Whitelist", List.of(
                         "minecraft:player",
                         "modC:monsterD"), () -> "", o -> (o instanceof String));
+
+        BUILDER.pop();
+        BUILDER.push("Death Message Config");
+
+        enableDeathMsg = BUILDER
+                .define("Enable Death Msg",true);
 
         deathMsgBlackOrWhiteList = BUILDER
                 .comment("Enable blacklist or whitelist for entities that can trigger death message.")
@@ -54,14 +64,14 @@ public class KillCounterConfig {
         deathMsgBlacklist = BUILDER
                 .comment("Blacklist for entities that can trigger death message.")
                 .defineList("Death Msg Blacklist", List.of(
-                        "minecraft:armor_stand",
+                        "minecraft:armor_stand", "minecraft:pig", "minecraft:cow", "minecraft:chicken", "minecraft:sheep", "minecraft:cod", "minecraft:salmon", "minecraft:bee",
                         "minecraft:slime"), () -> "", o -> (o instanceof String));
         deathMsgWhitelist = BUILDER
                 .comment("Whitelist for entities that can trigger death message.")
                 .defineList("Death Msg Whitelist", List.of(
                         "minecraft:player",
                         "modC:monsterD"), () -> "", o -> (o instanceof String));
-
+        BUILDER.pop();
         CONFIG = BUILDER.build();
     }
 }

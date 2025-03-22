@@ -17,6 +17,7 @@ public class DeathMessage {
 
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
+        if(!KillCounterConfig.enableDeathMsg.get()) return;
         LivingEntity entity = event.getEntity();
         if (hasOwner(entity)) return;
         if (entity instanceof Player) return;
