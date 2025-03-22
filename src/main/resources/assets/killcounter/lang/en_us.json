@@ -1,0 +1,27 @@
+{
+
+
+  "killcounter.quick.double" : "%s Double Kill!",
+  
+  "killcounter.quick.triple" : "%s Triple Kill!",
+  
+  "killcounter.quick.quadra" : "%s Quadra Kill!",
+  
+  "killcounter.quick.penta" : "%s Penta Kill!",
+  
+  
+
+  "killcounter.total.three": "%s is on a Killing Spree!",
+  "killcounter.total.four": "%s Rampages!",
+  "killcounter.total.five": "%s is Unstoppable!",
+  "killcounter.total.six": "%s is Dominating!",
+  "killcounter.total.seven": "%s is Godlike!",
+  "killcounter.total.eight": "%s is Legendary!",
+
+  "killcounter.combined": "%s %s",
+
+  "killcounter.shutdown": "%s is Shut Down!"
+
+}
+
+
