@@ -2,6 +2,7 @@ package com.rinko1231.killcounter.client;
 
 import com.rinko1231.killcounter.KillCounter;
 import com.rinko1231.killcounter.config.KillClientConfig;
+import com.rinko1231.killcounter.network.DeathMessageNetwork;
 import com.rinko1231.killcounter.network.KillStreakNetwork;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,6 +19,7 @@ public class ClientSetup {
     public static void onPayloadRegister(RegisterPayloadHandlersEvent event) {
         // 注册客户端网络处理器
         KillStreakNetwork.register(event);
+        DeathMessageNetwork.register(event);
     }
 
 }
