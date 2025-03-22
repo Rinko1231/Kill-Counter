@@ -1,0 +1,26 @@
+{
+
+
+  "killcounter.quick.2" : "%s双杀！",
+  
+  "killcounter.quick.3" : "%s三杀！",
+  
+  "killcounter.quick.4" : "%s四杀！",
+  
+  "killcounter.quick.5" : "%s五杀！",
+  
+
+  "killcounter.total.3": "%s正在大杀特杀！",
+  "killcounter.total.4": "%s已经暴走了！",
+  "killcounter.total.5": "%s已经不可阻挡！",
+  "killcounter.total.6": "%s已经主宰比赛了！",
+  "killcounter.total.7": "%s接近神了！",
+  "killcounter.total.8": "%s已经超神了！",
+
+  "killcounter.combined": "%s %s",
+
+  "killcounter.shutdown": "%s被终结了！"
+
+}
+
+
