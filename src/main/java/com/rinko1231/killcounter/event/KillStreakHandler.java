@@ -104,7 +104,7 @@ public class KillStreakHandler {
 
     }
 
-    private void sendNetworkMessage(Player player, String type, int streak) {
+    private void sendNetworkMessage(Player player, Player killer, String type, int streak) {
         if (player instanceof ServerPlayer serverPlayer) {
 
             KillStreakNetwork.send(
@@ -112,7 +112,7 @@ public class KillStreakHandler {
                     new KillStreakPayload(
                             type,
                             streak,
-                            player.getName().getString()
+                            killer.getName().getString()
                     )
             );
 
@@ -121,34 +121,31 @@ public class KillStreakHandler {
 
     private void broadcastOverServer(Player killer, String type, int streak) {
 
-        Objects.requireNonNull(killer.getServer())
-                .getPlayerList()
-                .getPlayers()
-                .forEach(player ->
-                        sendNetworkMessage(killer,type,streak)
-                );
+
+        for (ServerPlayer player : Objects.requireNonNull(killer.getServer()).getPlayerList().getPlayers())
+        {
+            sendNetworkMessage(player, killer,type,streak);
+        }
+        
 
     }
 
     private void broadcastShutDownOverServer(Player victim) {
 
-        Objects.requireNonNull(victim.getServer())
-                .getPlayerList()
-                .getPlayers()
-                .forEach(player ->
-                        broadcastShutDown(victim)
-                );
+        for (ServerPlayer player : Objects.requireNonNull(victim.getServer()).getPlayerList().getPlayers()) {
+        broadcastShutDown(player, victim);
+        }
 
     }
 
-    private void broadcastShutDown(Player player) {
+    private void broadcastShutDown(Player player, Player victim) {
         if (player instanceof ServerPlayer serverPlayer) {
             KillStreakNetwork.send(
                     serverPlayer,
                     new KillStreakPayload(
                             "shutdown",
                             0,
-                            player.getName().getString()
+                            victim.getName().getString()
                     )
             );
         }
